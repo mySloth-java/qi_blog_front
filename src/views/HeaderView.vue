@@ -35,22 +35,17 @@
 
     <!-- 搜索框   -->
     <div class="header-right">
-      <div class="header-login">
-        登陆
-      </div>
-      <div class="header-search">
-        <el-autocomplete
-            class="inline-input"
-            placeholder="请输入内容"
-        ></el-autocomplete>
-      </div>
+      <HeaderSearchWeb></HeaderSearchWeb>
     </div>
   </div>
 </template>
 
 <script>
+import HeaderSearchWeb from "@/components/Header/HeaderSearchWeb.vue";
+
 export default {
-  name: "HeaderView"
+  name: "HeaderView",
+  components: {HeaderSearchWeb}
 }
 </script>
 
@@ -91,17 +86,11 @@ export default {
 .header-right{
   height: 100%;
   width: 40%;
-  display: flex;
   align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
 }
-/*登陆样式*/
-.header-login{
-  width: 30%;
-}
-/*搜索样式*/
-.header-search{
-  width: 70%;
 
-}
 
 </style>
