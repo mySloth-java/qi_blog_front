@@ -6,20 +6,20 @@
     <div class="index-main">
       <MainView></MainView>
     </div>
-    <div class="index-footer">
-      <FooterView></FooterView>
-    </div>
+<!--    <div class="index-footer">-->
+<!--      <FooterView></FooterView>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script>
 import HeaderView from "@/views/HeaderView.vue";
 import MainView from "@/views/MainView.vue";
-import FooterView from "@/views/FooterView.vue";
+// import FooterView from "@/views/FooterView.vue";
 
 export default {
   name: "IndexView",
-  components: {FooterView, MainView, HeaderView}
+  components: { MainView, HeaderView}
 }
 </script>
 
@@ -28,6 +28,7 @@ export default {
 .index{
   width: 100vw;
   height: 100vh;
+  font-size: 0;
 }
 .index-header{
   width: 100vw;
@@ -36,8 +37,10 @@ export default {
 
 .index-main{
   width: 100vw;
-  height: calc(100vh - 25vh);
-  background-color: gray;
+  /*height: calc(100vh - 25vh);*/
+  height: calc(100vh - 10vh);
+  display: flex;
+  justify-content: center;
 }
 .index-footer{
   width: 100vw;
