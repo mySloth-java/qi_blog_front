@@ -23,12 +23,12 @@
 
       <el-submenu index="3">
         <template slot="title">艺术</template>
-        <el-menu-item index="/sql">AI绘画</el-menu-item>
-        <el-menu-item index="/gpt">第九艺术</el-menu-item>
-        <el-menu-item index="/books">摄影</el-menu-item>
+        <el-menu-item index="/picture">AI绘画</el-menu-item>
+        <el-menu-item index="/game">第九艺术</el-menu-item>
+        <el-menu-item index="/pai">摄影</el-menu-item>
       </el-submenu>
-      <el-menu-item index="/about">在线聊天室</el-menu-item>
-      <el-menu-item index="/books">商城</el-menu-item>
+      <el-menu-item index="/chat">在线聊天室</el-menu-item>
+      <el-menu-item index="/store">商城</el-menu-item>
       <!--技能介绍，网站特点、社交账号-->
       <el-menu-item index="/about">关于</el-menu-item>
     </el-menu>
@@ -62,15 +62,17 @@ export default {
 .header-logo{
   width: 5%;
   height: 80%;
-  padding: 10px;
+  padding: 5px;
 }
 
 /*导航栏样式*/
 .header .el-menu{
-  height: 100%;
-  width:55%;
+  width: 50%;
 }
 /*导航栏子内容边框样式*/
+.header .el-menu .el-menu-item{
+
+}
 .header .el-menu .el-menu-item:first-child:before{
   content: '';
   position: absolute;

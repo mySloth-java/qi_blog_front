@@ -14,23 +14,33 @@
 
       <!-- 公告div     -->
       <div class="main-notice main-div">
-        <span class="title-text"><i class="el-icon-phone-outline"></i>公告</span>
+        <span class="title-text"><i class="el-icon-bell"></i>公告</span>
         <ul class="main-notice-content" v-for="(value,index) in list" :key="index">
           <li><i class="el-icon-message-solid"></i>{{value}}</li>
         </ul>
       </div>
+
+      <!-- 分类标签div   -->
+      <div class="main-classify main-div">
+        <span class="title-text main-classify-line"><i class="el-icon-collection-tag"></i>标签</span>
+        <div class="main-classify-content">
+          <el-tag type="info" color="white" v-for="(tag,index) in tags" :key="index">
+            {{tag}}
+          </el-tag>
+        </div>
+      </div>
+
+      <!-- 站点统计div   -->
+      <div class="main-statistics main-div">
+        <span class="title-text"><i class="el-icon-data-line"></i>统计</span>
+        <ul class="main-statistics-content">
+          <li>访问量:</li>
+          用户量
+          内容数
+          运行天数
+        </ul>
+      </div>
     </div>
-
-    <!-- 分类div   -->
-    <div class="main-">
-
-    </div>
-
-    <!-- 站点统计div   -->
-    <div class="main-">
-
-    </div>
-
 
     <div class="main-right">
       右边内容
@@ -45,7 +55,8 @@ export default {
     return {
       list:['本站点所用技术:Spring、SpringBoot、Swagger、ElasticSearch、Vue2、Mybatis',
         '本站点免费，转载本博客文章同需要著名出处，不需要请示，但一定要注明出处',
-        '欢饮来到我的博客网站，希望能帮助到大家，也请大家多多推广我的网站，希望有甲方看到']
+        '欢饮来到我的博客网站，希望能帮助到大家，也请大家多多推广我的网站，希望有甲方看到'],
+      tags:['软件设计师','CET4','CET6','红帽认证','软件设计师','CET4','CET6','红帽认证']
     }
   }
 }
@@ -104,6 +115,29 @@ export default {
 }
 .main-notice-content:last-child{
   margin-bottom: 10px;
+}
+
+/*分类标签样式*/
+.main-classify{
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+}
+/*分类标签内容样式*/
+.main-classify-content .el-tag{
+  margin: 0 5px 5px 10px;
+}
+/*分类下划线样式*/
+.main-classify-line{
+  border-bottom: 1px solid #eaedf4;
+  padding-bottom: 5px;
+}
+
+/*站点统计样式*/
+.main-statistics{
+  display: flex;
+  flex-direction: column;
+  background-color: palevioletred;
 }
 
 
