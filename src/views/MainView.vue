@@ -30,6 +30,19 @@
         </div>
       </div>
 
+      <!-- 热门推荐文章div     -->
+      <div class="main-hot main-div">
+        <span class="title-text"><i class="el-icon-hot-water"></i>热门文章</span>
+        <div class="main-hot-bottom">
+          <div class="main-hot-content" v-for="(text,index) in content" :key="index">
+            <img src="../assets/main-login_750x300.png" class="main-hot-img">
+            <div class="main-hot-content-item">
+              内容阿萨大大大大大大大水水水水水水水水水水水水水水的大大大大大大阿三顶顶顶顶顶顶顶顶顶顶哇大大{{text}}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- 站点统计div   -->
       <div class="main-statistics main-div">
         <span class="title-text"><i class="el-icon-data-line"></i>统计</span>
@@ -56,7 +69,8 @@ export default {
       list:['本站点所用技术:Spring、SpringBoot、Swagger、ElasticSearch、Vue2、Mybatis',
         '本站点免费，转载本博客文章同需要著名出处，不需要请示，但一定要注明出处',
         '欢饮来到我的博客网站，希望能帮助到大家，也请大家多多推广我的网站，希望有甲方看到'],
-      tags:['软件设计师','CET4','CET6','红帽认证','软件设计师','CET4','CET6','红帽认证']
+      tags:['软件设计师','CET4','CET6','红帽认证','软件设计师','CET4','CET6','红帽认证'],
+      content:['1','2','3','4','5']
     }
   }
 }
@@ -131,6 +145,33 @@ export default {
 .main-classify-line{
   border-bottom: 1px solid #eaedf4;
   padding-bottom: 5px;
+}
+
+/*热门文章样式*/
+.main-hot{
+  background-color: greenyellow;
+  display: flex;
+  flex-direction: column;
+}
+/*热门文章内容父div样式*/
+.main-hot-bottom{
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+/*热门文章内容*/
+.main-hot-content{
+  height: 20%;
+  width: 90%;
+  background-color: gray;
+  justify-content: center;
+  display: flex;
+  margin: 10px;
+}
+/*热门文章图表样式*/
+.main-hot-img{
+  width: 30%;
+  height: auto;
 }
 
 /*站点统计样式*/

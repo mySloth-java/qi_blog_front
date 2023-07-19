@@ -1,4 +1,5 @@
 <template>
+<!--  TODO bug：内容超出时会出现横向滑块-->
   <div class="header">
     <!--  log标志  -->
     <img src="../assets/logo.png" class="header-logo">
