@@ -4,10 +4,11 @@
     <!--  log标志  -->
     <img src="../assets/logo.png" class="header-logo">
     <!-- 导航菜单   -->
-    <el-menu mode="horizontal">
+    <el-menu mode="horizontal" router>
       <el-menu-item index="/index">首页</el-menu-item>
       <el-submenu index="1">
         <template slot="title">文章</template>
+        <el-menu-item index="/test">文章详情页面测试</el-menu-item>
         <el-menu-item index="/notes">笔记</el-menu-item>
         <el-menu-item index="/infos">信息收集</el-menu-item>
         <el-menu-item index="/articles">文章</el-menu-item>
@@ -22,12 +23,12 @@
         <el-menu-item index="/books">在线网盘</el-menu-item>
       </el-submenu>
 
-      <el-submenu index="3">
-        <template slot="title">艺术</template>
-        <el-menu-item index="/picture">AI绘画</el-menu-item>
-        <el-menu-item index="/game">第九艺术</el-menu-item>
-        <el-menu-item index="/pai">摄影</el-menu-item>
-      </el-submenu>
+<!--      <el-submenu index="3">-->
+<!--        <template slot="title">艺术</template>-->
+<!--        <el-menu-item index="/picture">AI绘画</el-menu-item>-->
+<!--        <el-menu-item index="/game">第九艺术</el-menu-item>-->
+<!--        <el-menu-item index="/pai">摄影</el-menu-item>-->
+<!--      </el-submenu>-->
       <el-menu-item index="/chat">在线聊天室</el-menu-item>
       <el-menu-item index="/store">商城</el-menu-item>
       <!--技能介绍，网站特点、社交账号-->

@@ -22,10 +22,14 @@
 </template>
 
 <script>
+import {getArticles} from "@/api/articles";
+
 export default {
   name: "MainRightWeb",
   data(){
     return {
+      pageNum: 1,
+      pageSize: 3,
       article:[
         {
           img: require('@/assets/main-login_750x300.png'),
@@ -66,6 +70,17 @@ export default {
       ]
     }
   },
+  methods:{
+    //文章信息获取
+    getArticlesFront: function (){
+      getArticles(this.pageNum,this.pageSize).then(res =>{
+        console.log('文章信息',res.data)
+      })
+    }
+  },
+  mounted() {
+    // this.getArticlesFront()
+  }
 }
 </script>
 
@@ -75,7 +90,7 @@ export default {
   width: 70%;
   height: auto;
   background-color: #323335;
-  padding: 10px;
+  padding: 15px;
   box-sizing: border-box;
 }
 
