@@ -7,11 +7,11 @@
     <el-menu mode="horizontal" router>
       <el-menu-item index="/index">首页</el-menu-item>
       <el-submenu index="1">
-        <template slot="title">文章</template>
+        <template slot="title">论坛</template>
         <el-menu-item index="/test">文章详情页面测试</el-menu-item>
-        <el-menu-item index="/notes">笔记</el-menu-item>
-        <el-menu-item index="/infos">信息收集</el-menu-item>
-        <el-menu-item index="/articles">文章</el-menu-item>
+<!--        <el-menu-item index="/notes">笔记</el-menu-item>-->
+<!--        <el-menu-item index="/infos">信息收集</el-menu-item>-->
+<!--        <el-menu-item index="/articles">文章</el-menu-item>-->
       </el-submenu>
 
       <!--鱼皮的sql创建工具、chatGPT、视频在线播放、网盘、书籍-->

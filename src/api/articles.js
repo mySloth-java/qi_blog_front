@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.baseURL = 'http://localhost:9090'
 
 /**
- *
+ * 分页查询文章API
  * @param pageNum 文章开始页数
  * @param pageSize 文章每页显示条数
  * @returns {Promise<AxiosResponse<any>> | *}
@@ -18,3 +18,5 @@ export function getArticles(pageNum,pageSize){
         }
     })
 }
+
+
