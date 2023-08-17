@@ -24,8 +24,9 @@
     <div class="main-classify main-div">
       <span class="title-text main-classify-line"><i class="el-icon-collection-tag"></i>标签</span>
       <div class="main-classify-content">
-        <el-tag type="info" color="white" v-for="(tag,index) in tags" :key="index">
-          {{tag}}
+        <el-tag type="info" color="white" v-for="(category) in categories" :key="category.id">
+<!--          TODO 分类详情页面跳转-->
+          <a href="https://baidu.com">{{category.name}}</a>
         </el-tag>
       </div>
     </div>
@@ -57,6 +58,8 @@
 </template>
 
 <script>
+import {getCategory} from "@/api/category";
+
 export default {
   name: "MainLeftWeb",
   data(){
@@ -66,9 +69,26 @@ export default {
       list:['本站点所用技术:Spring、SpringBoot、Swagger、ElasticSearch、Vue2、Mybatis',
         '本站点免费，转载本博客文章同需要著名出处，不需要请示，但一定要注明出处',
         '欢饮来到我的博客网站，希望能帮助到大家，也请大家多多推广我的网站，希望有甲方看到'],
-      tags:['软件设计师','CET4','CET6','红帽认证','软件设计师','CET4','CET6','红帽认证'],
+      categories:[],//文章分类信息
       content:['1','2','3','4','5']
     }
+  },
+  methods:{
+    //分类信息获取
+    getCategoryFront: function (){
+      getCategory().then(res =>{
+        if(res.data.code !== 200){
+          this.$message.error("文章分类获取异常!")
+        }else {
+          this.categories = res.data.data
+          //存入vuex中
+          this.$store.state.categories = this.categories
+        }
+      })
+    }
+  },
+  mounted() {
+    this.getCategoryFront()
   }
 }
 </script>

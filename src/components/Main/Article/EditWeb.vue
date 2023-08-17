@@ -1,6 +1,14 @@
 <template>
   <div class="main-edit">
-    <mavon-editor ref="markDown" v-model="content" :ishljs="true" @imgAdd="imgUploadFront"/>
+    <el-form label-width="80px" size="small" label-position="top">
+      <el-form-item label="文章标题">
+        <el-input v-model="form.name" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="文章内容">
+        <mavon-editor ref="markDown" v-model="form.content" :ishljs="true" @imgAdd="imgUploadFront"/>
+      </el-form-item>
+    </el-form>
+
   </div>
 </template>
 
@@ -11,7 +19,7 @@ export default {
   name: "EditWeb",
   data(){
     return {
-      content:"",
+      form:{},
     }
   },
   methods:{
@@ -19,7 +27,6 @@ export default {
       let myVm = this.$refs.markDown
 
       imgUpLoad(files).then(res =>{
-        console.log('图片数据:',res.data)
         //将返回的文本替换到文本原位置
         myVm.$img2Url(pos,res.data.data)
       })
@@ -36,4 +43,8 @@ export default {
   margin-right: 15px;
 }
 
+/*清除标题和文本内容的间隔*/
+.el-form-item--small.el-form-item{
+  margin: 0;
+}
 </style>

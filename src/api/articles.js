@@ -20,3 +20,11 @@ export function getArticles(pageNum,pageSize){
 }
 
 
+export function addArticle(article){
+    return axios({
+        url:'/article/punish',
+        method:'post',
+        data:article
+    })
+}
+

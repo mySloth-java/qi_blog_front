@@ -17,6 +17,7 @@ export default {
 </script>
 
 <style scoped>
+/*文章页面总样式*/
 .main{
   width: 100%;
   height: 100%;

@@ -1,7 +1,7 @@
 <template>
 <!--  TODO 左右内容总div并不会随着动态div而撑开高度-->
   <div class="main-right">
-    <div class="main-right-content" v-for="(content,index) in articles" :key="index">
+    <div class="main-right-content" v-for="(content,index) in articles" :key="content.id">
       <!-- 左边内容       -->
       <div v-if="index %2 === 0" class="main-right-item">
         <img :src="content.img" class="main-right-item-img">
@@ -59,15 +59,16 @@ export default {
         if(res.data.code !== 200){
           this.$message.error("文章信息获取异常!请联系管理员")
         }else {
-          //为变量赋值
+          //为变量赋值，并存储到vuex中
           this.articles = res.data.data.rows
+          this.$store.state.articles = this.articles
         }
       })
     },
 
   },
   mounted() {
-    // this.getArticlesFront()
+    this.getArticlesFront()
   }
 }
 </script>
