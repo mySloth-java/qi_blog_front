@@ -7,6 +7,7 @@ import IndexView from "@/views/IndexView.vue";
 
 import IndexWeb from "@/components/Main/IndexWeb.vue";
 import ArticleWeb from "@/components/Main/ArticleWeb.vue";
+import ArticleDetail from "@/components/Main/Article/ArticleDetail.vue";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
         path: '/test',
         name: 'ArticleWeb',
         component: ArticleWeb,
+      },
+      {
+        path: '/articleDetail',
+        name: 'ArticleDetail',
+        component: ArticleDetail
       }
     ]
   },

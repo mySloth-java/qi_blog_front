@@ -7,8 +7,19 @@
       <img :src="login_img" style="width: 100%;height: 40%;">
       <!-- 登陆展示       -->
       <div class="main-login-item">
-        <!-- 1、签到；2、积分；         -->
-        登陆前和登陆后展示
+        <!-- 已登录       -->
+        <div class="main-login-item-container" v-if="user.name">
+          aa
+        </div>
+
+        <!-- 未登陆       -->
+        <div class="main-login-item-container" v-else>
+          <span style="font-size: 18px;color: #B3B5BAFF;padding: 20px 0">你好 请登陆</span>
+          <p>
+            <el-button size="mini" icon="el-icon-edit">登陆</el-button>
+            <el-button size="mini" icon="el-icon-edit">注册</el-button>
+          </p>
+        </div>
       </div>
     </div>
 
@@ -70,7 +81,10 @@ export default {
         '本站点免费，转载本博客文章同需要著名出处，不需要请示，但一定要注明出处',
         '欢饮来到我的博客网站，希望能帮助到大家，也请大家多多推广我的网站，希望有甲方看到'],
       categories:[],//文章分类信息
-      content:['1','2','3','4','5']
+      content:['1','2','3','4','5'],
+      user:{
+        name:''
+      },
     }
   },
   methods:{
@@ -81,9 +95,12 @@ export default {
           this.$message.error("文章分类获取异常!")
         }else {
           this.categories = res.data.data
-          //存入vuex中
-          this.$store.state.categories = this.categories
+          //存入state中
+          this.$store.state.articleModel.categories = this.categories
         }
+      }).catch(error =>{
+        console.log('服务端请求失败!',error)
+        this.$message.error('服务端请求失败')
       })
     }
   },
@@ -100,6 +117,7 @@ export default {
   width: 30%;
   background-color: #f4f4f4;
   margin-right: 15px;
+  font-size: 0;
 }
 /*小div通用样式*/
 .main-div{
@@ -107,7 +125,10 @@ export default {
   height: auto;
   border-radius: 15px;
   margin-bottom: 10px;
+  background-color: #323335;
+  color: white;
 }
+
 /*div标题通用样式*/
 .title-text{
   font-size: 16px;
@@ -117,13 +138,27 @@ export default {
 /*登陆样式*/
 .main-login{
   background-color: aqua;
-
 }
+/*用户登陆样式*/
+.main-login-item{
+  width: 100%;
+  background-color: #323335;
+  display: flex;
+  justify-content: center;
+}
+.main-login-item-container{
+  width: 70%;
+  margin:40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /*公告样式*/
 .main-notice{
   display: flex;
   flex-direction: column;
-  background-color: sienna;
+  font-size: 14px;
 }
 /*公告文章内容样式*/
 .main-notice-content{
@@ -142,9 +177,9 @@ export default {
 
 /*分类标签样式*/
 .main-classify{
-  background-color: aquamarine;
   display: flex;
   flex-direction: column;
+  font-size: 14px;
 }
 /*分类标签内容样式*/
 .main-classify-content .el-tag{
@@ -158,9 +193,9 @@ export default {
 
 /*热门文章样式*/
 .main-hot{
-  background-color: greenyellow;
   display: flex;
   flex-direction: column;
+  font-size: 14px;
 }
 /*热门文章内容父div样式*/
 .main-hot-bottom{
@@ -187,6 +222,6 @@ export default {
 .main-statistics{
   display: flex;
   flex-direction: column;
-  background-color: palevioletred;
+  font-size: 14px;
 }
 </style>

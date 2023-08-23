@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://localhost:9090'
+axios.defaults.baseURL = 'http://localhost:9090/'
 
 /**
  * 分页查询文章API
@@ -19,12 +19,32 @@ export function getArticles(pageNum,pageSize){
     })
 }
 
-
+/**
+ * 发布文章API
+ * @param article 文章实体
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
 export function addArticle(article){
     return axios({
         url:'/article/punish',
         method:'post',
         data:article
+    })
+}
+
+/**
+ * 查询文章详情API
+ * @param id 文章唯一的ID标识
+ * @returns {*}
+ * @constructor
+ */
+export function getArticleInfo(id){
+    return axios({
+        url:'/article/detail/'+id,
+        method:'get',
+        query:{
+            id:id
+        }
     })
 }
 

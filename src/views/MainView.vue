@@ -15,10 +15,10 @@ export default {
 <style scoped>
 /*总样式*/
 .main-center{
-  width: 90%;
+  width: 100%;
   height: 100%;
   display: flex;
-  font-size: 14px;
+  justify-content: center;
 }
 
 </style>

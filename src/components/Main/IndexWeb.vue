@@ -18,7 +18,7 @@ export default {
 <style scoped>
 /*总样式*/
 .main{
-  width: 100%;
+  width: 90%;
   height: 100%;
   display: flex;
   margin-top: 15px;

@@ -37,10 +37,9 @@ export default {
 
 .index-main{
   width: 100vw;
-  /*height: calc(100vh - 25vh);*/
   height: calc(100vh - 10vh);
-  display: flex;
-  justify-content: center;
+  background-image: url("@/assets/index_bk_dark.png");
+  z-index: -10;
 }
 .index-footer{
   width: 100vw;
