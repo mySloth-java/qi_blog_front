@@ -1,5 +1,5 @@
 <template>
-<!--  TODO 左右内容总div并不会随着动态div而撑开高度-->
+<!--  TODO 分页-->
   <div class="main-right">
     <div class="main-right-content" v-for="(content,index) in articles" :key="content.id">
       <!-- 左边内容       -->
@@ -27,6 +27,15 @@
         <img :src="content.img" class="main-right-item-img">
       </div>
     </div>
+    <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage4"
+        :page-sizes="[10, 20, 300, 400]"
+        :page-size="10"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400">
+    </el-pagination>
   </div>
 </template>
 
@@ -42,6 +51,41 @@ export default {
       pageSize: 10,
       articles:[
         {
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容'
+        },
+        {
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容2'
+        },{
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容'
+        },
+        {
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容2'
+        },{
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容'
+        },
+        {
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容2'
+        },{
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容'
+        },
+        {
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容2'
+        },{
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容'
+        },
+        {
+          img: require('@/assets/main-login_750x300.png'),
+          text:'测试内容2'
+        },{
           img: require('@/assets/main-login_750x300.png'),
           text:'测试内容'
         },
@@ -101,6 +145,7 @@ export default {
   box-sizing: border-box;
   font-size: 14px;
   color: white;
+  border-radius: 15px;
 }
 
 /*右边子内容样式*/

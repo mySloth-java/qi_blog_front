@@ -27,23 +27,23 @@ export default {
 
 .index{
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   font-size: 0;
 }
 .index-header{
   width: 100vw;
-  height: calc(100vh - 90vh);
+  min-height: calc(100vh - 90vh);
 }
 
 .index-main{
   width: 100vw;
-  height: calc(100vh - 10vh);
+  min-height: calc(100vh - 10vh);
   background-image: url("@/assets/index_bk_dark.png");
-  z-index: -10;
+  background-size: cover;
 }
 .index-footer{
   width: 100vw;
-  height: calc(100vh - 85vh);
+  min-height: calc(100vh - 85vh);
   background-color: cornflowerblue;
 }
 

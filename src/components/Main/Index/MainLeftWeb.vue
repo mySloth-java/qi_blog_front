@@ -1,10 +1,10 @@
 <template>
-<!--  TODO 组件图片引入问题-->
   <div class="main-left">
-    <!-- TODO 登陆div     -->
     <div class="main-login main-div">
       <!-- 背景图       -->
-      <img :src="login_img" style="width: 100%;height: 40%;">
+      <div class="main-login-img">
+        <img :src="login_img" style="width: 100%;height: 40%;">
+      </div>
       <!-- 登陆展示       -->
       <div class="main-login-item">
         <!-- 已登录       -->
@@ -16,12 +16,36 @@
         <div class="main-login-item-container" v-else>
           <span style="font-size: 18px;color: #B3B5BAFF;padding: 20px 0">你好 请登陆</span>
           <p>
-            <el-button size="mini" icon="el-icon-edit">登陆</el-button>
+            <el-button size="mini" icon="el-icon-edit" @click="login">登陆</el-button>
             <el-button size="mini" icon="el-icon-edit">注册</el-button>
           </p>
         </div>
       </div>
     </div>
+
+    <!-- TODO 登陆和注册   -->
+    <el-dialog title="登陆" :visible.sync="loginDialogFlag" width="30%">
+      <div class="login-dialog">
+        <img :src="login_img" style="width: 70%;margin-bottom: 20px">
+        <div>
+          <el-input placeholder="用户名或者邮箱" size="small" v-model="account"
+                    style="width: 90%;padding: 10px 0">
+          </el-input>
+          <el-input placeholder="登陆密码" size="small" show-password v-model="password"
+                    style="width: 90%;padding: 10px 0">
+          </el-input>
+
+          <div style="display: flex;justify-content: space-between">
+            <el-checkbox v-model="remember">记住登陆</el-checkbox>
+            <a>找回密码</a><a>注册账号</a>
+          </div>
+          <div>
+            <el-button>登陆</el-button>
+          </div>
+
+        </div>
+      </div>
+    </el-dialog>
 
     <!-- 公告div     -->
     <div class="main-notice main-div">
@@ -84,11 +108,17 @@ export default {
       content:['1','2','3','4','5'],
       user:{
         name:''
-      },
+      },//用户信息
+      loginDialogFlag:false,//登陆dialog控制
+      account:'',//账户
+      password:'',//用户密码
+      remember:false,
     }
   },
   methods:{
-    //分类信息获取
+    /**
+     * 分类信息获取
+     */
     getCategoryFront: function (){
       getCategory().then(res =>{
         if(res.data.code !== 200){
@@ -102,9 +132,15 @@ export default {
         console.log('服务端请求失败!',error)
         this.$message.error('服务端请求失败')
       })
+    },
+    /**
+     * 登陆
+     */
+    login(){
+      this.loginDialogFlag = true
     }
   },
-  mounted() {
+  created() {
     this.getCategoryFront()
   }
 }
@@ -115,7 +151,6 @@ export default {
 .main-left{
   height: 100%;
   width: 30%;
-  background-color: #f4f4f4;
   margin-right: 15px;
   font-size: 0;
 }
@@ -137,14 +172,22 @@ export default {
 
 /*登陆样式*/
 .main-login{
-  background-color: aqua;
+
 }
+.main-login-img{
+  width: 100%;
+  height: 20%;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
 /*用户登陆样式*/
 .main-login-item{
   width: 100%;
   background-color: #323335;
   display: flex;
   justify-content: center;
+  border-radius: 15px;
 }
 .main-login-item-container{
   width: 70%;
@@ -152,6 +195,17 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+/*登陆提交div样式*/
+.login-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/*登陆div样式*/
+/deep/.el-dialog{
+  border-radius: 15px;
+  opacity: 0.9;
 }
 
 /*公告样式*/
