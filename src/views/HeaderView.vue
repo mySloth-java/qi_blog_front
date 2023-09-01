@@ -2,7 +2,7 @@
 <!--  TODO bug：内容超出时会出现横向滑块-->
   <div class="header">
     <!--  log标志  -->
-    <img src="../assets/logo.png" class="header-logo">
+    <img src="../assets/img/logo.png" class="header-logo">
     <!-- 导航菜单   -->
     <el-menu mode="horizontal" router>
       <el-menu-item index="/index">首页</el-menu-item>

@@ -17,7 +17,7 @@
       </div>
 
       <!-- 右边内容     -->
-      <div v-else class="main-right-item">
+      <div v-else class="main-right-item" @click="getArticleDetail(content.id)">
         <div class="main-right-item-div">
           <p class="content-title">{{content.title}}</p>
           <div>{{content.summarize}}</div>
@@ -30,11 +30,12 @@
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage4"
-        :page-sizes="[10, 20, 300, 400]"
-        :page-size="10"
+        :current-page="pageNum"
+        :page-sizes="[10, 15, 20]"
+        :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400">
+        :total="total"
+        v-if="total !== 0">
     </el-pagination>
   </div>
 </template>
@@ -51,49 +52,50 @@ export default {
       pageSize: 10,
       articles:[
         {
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容'
         },
         {
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容2'
         },{
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容'
         },
         {
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容2'
         },{
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容'
         },
         {
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容2'
         },{
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容'
         },
         {
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容2'
         },{
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容'
         },
         {
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容2'
         },{
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容'
         },
         {
-          img: require('@/assets/main-login_750x300.png'),
+          img: require('@/assets/img/main-login_750x300.png'),
           text:'测试内容2'
         },
-      ]
+      ],
+      total: 0,
     }
   },
   methods:{
@@ -108,7 +110,7 @@ export default {
         }else {
           //为变量赋值，并存储到state中
           this.articles = res.data.data.rows
-
+          this.total = res.data.data.total
           this.$store.state.articleModel.infos = this.articles
         }
       }).catch(error =>{
@@ -117,7 +119,7 @@ export default {
       })
     },
     /**
-     * 文章详情
+     * 文章详情点击
      */
     getArticleDetail: function (id){
       this.$router.push({
@@ -126,7 +128,16 @@ export default {
           id:id
         }
       })
+    },
+    handleSizeChange(pageSize){
+      this.pageSize = pageSize
+      this.getArticlesFront()
+    },
+    handleCurrentChange(pageNum){
+      this.pageNum = pageNum
+      this.getArticlesFront()
     }
+
 
   },
   mounted() {
@@ -140,7 +151,8 @@ export default {
 .main-right{
   width: 70%;
   height: auto;
-  background-color: #323335;
+  /*background-color: #323335;*/
+  backdrop-filter: blur(20px);
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;

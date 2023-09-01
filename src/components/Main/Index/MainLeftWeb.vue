@@ -9,40 +9,71 @@
       <div class="main-login-item">
         <!-- 已登录       -->
         <div class="main-login-item-container" v-if="user.name">
-          aa
+          {{user.name}}
         </div>
 
         <!-- 未登陆       -->
         <div class="main-login-item-container" v-else>
           <span style="font-size: 18px;color: #B3B5BAFF;padding: 20px 0">你好 请登陆</span>
           <p>
-            <el-button size="mini" icon="el-icon-edit" @click="login">登陆</el-button>
-            <el-button size="mini" icon="el-icon-edit">注册</el-button>
+            <el-button size="mini" icon="el-icon-edit" @click="loginBefore">登陆</el-button>
+            <el-button size="mini" icon="el-icon-edit" @click="registerBefore">注册</el-button>
           </p>
         </div>
       </div>
     </div>
 
-    <!-- TODO 登陆和注册   -->
+    <!-- 登陆dialog   -->
     <el-dialog title="登陆" :visible.sync="loginDialogFlag" width="30%">
       <div class="login-dialog">
         <img :src="login_img" style="width: 70%;margin-bottom: 20px">
-        <div>
-          <el-input placeholder="用户名或者邮箱" size="small" v-model="account"
-                    style="width: 90%;padding: 10px 0">
-          </el-input>
-          <el-input placeholder="登陆密码" size="small" show-password v-model="password"
-                    style="width: 90%;padding: 10px 0">
-          </el-input>
-
-          <div style="display: flex;justify-content: space-between">
-            <el-checkbox v-model="remember">记住登陆</el-checkbox>
-            <a>找回密码</a><a>注册账号</a>
-          </div>
-          <div>
-            <el-button>登陆</el-button>
+        <div class="login-dialog-center">
+          <div class="login-dialog-detail">
+            <el-input placeholder="用户名或者邮箱" size="small" v-model="account"
+                      style="width: 90%;padding: 10px 0">
+            </el-input>
+            <el-input placeholder="输入密码" size="small" show-password v-model="password"
+                      style="width: 90%;padding: 10px 0">
+            </el-input>
           </div>
 
+          <div class="login-dialog-item">
+            <el-checkbox v-model="remember" class="a-link">记住登陆</el-checkbox>
+            <a class="a-link">找回密码</a>
+            <a class="a-link" @click="registerLink">注册账号</a>
+          </div>
+          <div class="login-dialog-login">
+            <el-button size="small" round style="width: 70%" @click="loginFront">登陆</el-button>
+          </div>
+        </div>
+      </div>
+    </el-dialog>
+    <!-- 注册dialog   -->
+    <el-dialog title="注册" :visible.sync="registerDialogFlag" width="30%">
+      <div class="login-dialog">
+        <img :src="login_img" style="width: 70%;margin-bottom: 20px">
+        <div class="login-dialog-center">
+          <div class="login-dialog-detail">
+            <el-input placeholder="设置用户名" size="small" v-model="account"
+                      style="width: 90%;padding: 10px 0">
+            </el-input>
+            <el-input placeholder="邮箱" size="small" v-model="email"
+                      style="width: 90%;padding: 10px 0">
+            </el-input>
+            <el-input placeholder="设置密码" size="small" show-password v-model="password"
+                      style="width: 90%;padding: 10px 0">
+            </el-input>
+          </div>
+
+          <div class="login-dialog-item">
+            <p>注册即表示同意
+              <router-link to="/asd">用户协议、</router-link>
+              <router-link to="/yinsi">隐私声明</router-link>
+            </p>
+          </div>
+          <div class="login-dialog-login">
+            <el-button size="small" round style="width: 70%" @click="registerFront" type="success">注册</el-button>
+          </div>
         </div>
       </div>
     </el-dialog>
@@ -94,25 +125,27 @@
 
 <script>
 import {getCategory} from "@/api/category";
+import {login, register} from "@/api/user";
+import {mapState} from "vuex";
 
 export default {
   name: "MainLeftWeb",
   data(){
     return {
-      login_img: require('@/assets/main-login_750x300.png'),//登陆div图片引入
-      hot_img: require('@/assets/main-login_750x300.png'),//热门文章div图片引入
+      login_img: require('@/assets/img/main-login_750x300.png'),//登陆div图片引入
+      hot_img: require('@/assets/img/main-login_750x300.png'),//热门文章div图片引入
       list:['本站点所用技术:Spring、SpringBoot、Swagger、ElasticSearch、Vue2、Mybatis',
         '本站点免费，转载本博客文章同需要著名出处，不需要请示，但一定要注明出处',
         '欢饮来到我的博客网站，希望能帮助到大家，也请大家多多推广我的网站，希望有甲方看到'],
       categories:[],//文章分类信息
       content:['1','2','3','4','5'],
-      user:{
-        name:''
-      },//用户信息
       loginDialogFlag:false,//登陆dialog控制
+      registerDialogFlag:false,//注册dialog控制
       account:'',//账户
       password:'',//用户密码
-      remember:false,
+      email:'',//邮箱
+      remember:false,//记住我勾选记录
+      user:{}
     }
   },
   methods:{
@@ -136,9 +169,60 @@ export default {
     /**
      * 登陆
      */
-    login(){
+    loginFront:function (){
+      login(this.account,this.password).then(res =>{
+        if(res.data.code === 200){
+          //1、存储token和用户详细信息
+          localStorage.setItem("token",res.data.data.token)
+          //TODO 添加拦截器，每次发送请求有token时添加到header中
+          this.$store.state.userModel.infos = res.data.data.info.user
+          this.user = res.data.data.info.user
+
+          //2、关闭dialog，并清楚信息
+          this.loginDialogFlag = false
+          this.account = ''
+          this.password = ''
+          this.$message.success("登陆成功!")
+        }else {
+          this.$message.error(res.data.msg)
+        }
+      }).catch(error =>{
+        console.log('服务端请求失败!',error)
+        this.$message.error('登陆API请求失败')
+      })
+    },
+    /**
+     * 注册
+     */
+    registerFront:function (){
+      register(this.account,this.email,this.password).then(res =>{
+        if(res.data.code === 200){
+          this.registerDialogFlag = false
+          this.$message.success("注册成功!")
+        }else {
+          this.$message.error(res.data.msg)
+        }
+      }).catch(error =>{
+        console.log('服务端请求失败!',error)
+        this.$message.error('注册API请求失败')
+      })
+
+    },
+    loginBefore(){
       this.loginDialogFlag = true
+    },
+    registerBefore(){
+      this.registerDialogFlag = true
+    },
+    registerLink(){
+      //TODO 切换之间的动画跳转
+      this.registerDialogFlag = true
+      this.loginDialogFlag = false
     }
+  },
+  computed:{
+    //登陆用户信息
+    ...mapState("userModel",['infos'])
   },
   created() {
     this.getCategoryFront()
@@ -160,8 +244,17 @@ export default {
   height: auto;
   border-radius: 15px;
   margin-bottom: 10px;
-  background-color: #323335;
+  /*background-color: #323335;*/
+  /*background: rgba(29,29,31,0.72);*/
+  backdrop-filter: blur(20px);
   color: white;
+}
+/*超链接标签样式*/
+.a-link{
+  cursor: pointer;
+}
+.a-link:hover{
+  color: cornflowerblue;
 }
 
 /*div标题通用样式*/
@@ -184,7 +277,8 @@ export default {
 /*用户登陆样式*/
 .main-login-item{
   width: 100%;
-  background-color: #323335;
+  /*background-color: #323335;*/
+  backdrop-filter: blur(20px);
   display: flex;
   justify-content: center;
   border-radius: 15px;
@@ -195,6 +289,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 14px;
 }
 /*登陆提交div样式*/
 .login-dialog {
@@ -202,12 +297,26 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+/*登陆页面提交核心*/
+.login-dialog-detail{
+
+}
 /*登陆div样式*/
 /deep/.el-dialog{
   border-radius: 15px;
   opacity: 0.9;
 }
-
+/*登陆div布局*/
+.login-dialog-item{
+  display: flex;
+  justify-content: space-between;
+}
+/*登陆div登陆框样式*/
+.login-dialog-login{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
 /*公告样式*/
 .main-notice{
   display: flex;

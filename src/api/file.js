@@ -20,6 +20,6 @@ export function imgUpLoad(file){
     return axios({
         url:'/file/upload',
         method:'post',
-        data:formData,
+        data:formData
     })
 }
